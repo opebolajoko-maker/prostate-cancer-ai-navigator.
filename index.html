@@ -46,7 +46,7 @@
             width: 92vw;
             max-width: 1200px;
             height: 85vh;
-            min-height: 650px;
+            min-height: 680px;
             background: transparent;
             border-radius: 32px;
             overflow: hidden;
@@ -61,9 +61,8 @@
             background-color: var(--bg-electric-blue);
             background-image: 
                 radial-gradient(circle at 20% 30%, #3b82f6 0%, transparent 50%),
-                radial-gradient(circle at 75% 70%, #0026ca 0%, transparent 60%),
-                flow-gradient;
-            padding: 48px;
+                radial-gradient(circle at 75% 70%, #0026ca 0%, transparent 60%);
+            padding: 44px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -73,13 +72,37 @@
         .brand-zone { display: flex; align-items: center; gap: 16px; }
         .logo-placeholder { font-size: 32px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); }
         
-        /* iCCaRE Colored Styled Header Accent Text */
         .brand-text { font-size: 36px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; color: #ffffff; }
         .brand-text span.r { color: #ffccd0; }
         .brand-text span.g { color: #a7f3d0; }
         .brand-text span.y { color: var(--iccare-yellow); }
 
-        .hero-desc { font-size: 15px; line-height: 1.6; color: rgba(255, 255, 255, 0.85); margin-top: 20px; font-weight: 400; }
+        .hero-desc { font-size: 14px; line-height: 1.6; color: rgba(255, 255, 255, 0.85); margin-top: 14px; font-weight: 400; }
+
+        /* External Consortium Portal Links Area */
+        .portal-links {
+            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.15);
+            padding: 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .portal-link-item {
+            color: var(--iccare-yellow);
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .portal-link-item:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
 
         /* The 3 Dots Accent from Reference Image */
         .dots-row { display: flex; gap: 8px; align-items: center; }
@@ -150,7 +173,7 @@
         .msg-text p:last-child { margin-bottom: 0; }
 
         /* Navigation Suggestions Tags Grid */
-        .shortcuts-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+        .shortcuts-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
         .shortcut-item { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); padding: 12px 16px; border-radius: 12px; cursor: pointer; font-size: 13px; font-weight: 500; color: white; text-align: left; }
         .shortcut-item:hover { background: rgba(255,255,255,0.15); border-color: var(--iccare-yellow); }
 
@@ -168,7 +191,6 @@
 </head>
 <body>
 
-    <!-- Unified Split Screen Layout Structure -->
     <div class="app-canvas">
         
         <!-- LEFT SIDE BLOCK: Electric Reference Art & Menu Info -->
@@ -181,14 +203,21 @@
             </div>
 
             <div>
-                <h2 style="font-size: 24px; font-weight: 800; margin: 0; line-height: 1.2;">Prostate Cancer Care Support Platform</h2>
+                <h2 style="font-size: 22px; font-weight: 800; margin: 0; line-height: 1.2;">Prostate Cancer Care Support Platform</h2>
                 <p class="hero-desc">An interactive coordination repository map layout built to support navigational oncology benchmarks and streamline complex patient resource timelines seamlessly.</p>
                 
+                <!-- Official iCCaRE External Link Infrastructure -->
+                <div class="portal-links">
+                    <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; opacity: 0.7; letter-spacing: 0.5px;">Official Consortium Portals:</span>
+                    <a href="https://iccareconsortium.org/" target="_blank" class="portal-link-item">🔗 Visit iCCaRE Main Website</a>
+                    <a href="https://www.iccareconsortium.org/projects" target="_blank" class="portal-link-item">🔬 Explore iCCaRE Research Projects</a>
+                </div>
+
                 <!-- Quick Selection Component Subsections inside Left Deck -->
                 <div class="shortcuts-grid">
-                    <button class="shortcut-item" onclick="sendPreset('What does Active Surveillance mean?')">📋 Define Active Surveillance</button>
-                    <button class="shortcut-item" onclick="sendPreset('What are the common side effects of hormone therapy (ADT)?')">💊 Evaluate Hormone Side Effects</button>
-                    <button class="shortcut-item" onclick="sendPreset('What does a Gleason Score mean in my pathology report?')">🔬 Interpret Gleason Pathology Scores</button>
+                    <button class="shortcut-item" onclick="sendPreset('What does Active Surveillance mean?')">Active Surveillance Definition</button>
+                    <button class="shortcut-item" onclick="sendPreset('What are the common side effects of hormone therapy (ADT)?')">Hormone Treatment Concerns</button>
+                    <button class="shortcut-item" onclick="sendPreset('What does a Gleason Score mean in my pathology report?')">Deciphering Gleason Scores</button>
                 </div>
             </div>
 
