@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prostate Cancer Care AI Companion</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 0; background-color: #f8fafc; color: #1e293b; display: flex; flex-direction: column; min-height: 100vh; }
+        header { background-color: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 16px 24px; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
+        .header-container { max-width: 896px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
+        .dot { width: 12px; height: 12px; background-color: #2563eb; border-radius: 50%; }
+        h1 { font-size: 20px; font-weight: 700; color: #1e293b; margin: 0; }
+        .badge { font-size: 12px; background-color: #f1f5f9; color: #475569; padding: 4px 8px; border-radius: 9999px; font-weight: 500; }
+        main { flex: 1; max-width: 896px; width: 100%; margin: 0 auto; padding: 24px; display: flex; flex-direction: column; box-sizing: border-box; }
+        .info-banner { background-color: #eff6ff; border: 1px solid #dbeafe; border-radius: 12px; padding: 16px; some-margin-bottom: 16px; font-size: 14px; color: #1e40af; margin-bottom: 16px; }
+        .key-container { background-color: #fef08a; border: 1px solid #fef08a; border-radius: 12px; padding: 12px; margin-bottom: 16px; display: flex; gap: 8px; align-items: center; }
+        .key-input { flex: 1; padding: 8px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 14px; }
+        .chat-box { flex: 1; min-height: 350px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); overflow-y: auto; display: flex; flex-direction: column; gap: 16px; margin-bottom: 16px; }
+        .welcome-msg { text-align: center; padding: 48px 0; color: #94a3b8; }
+        .msg-wrapper { display: flex; width: 100%; }
+        .msg-wrapper.user { justify-content: flex-end; }
+        .msg-wrapper.ai { justify-content: flex-start; }
+        .message { max-width: 80%; border-radius: 16px; padding: 12px 16px; font-size: 14px; line-height: 1.5; word-wrap: break-word; }
+        .msg-wrapper.user .message { background-color: #2563eb; color: #ffffff; }
+        .msg-wrapper.ai .message { background-color: #f1f5f9; color: #1e293b; border: 1px solid #e2e8f0; }
+        .msg-sender { font-weight: 600; font-size: 11px; text-transform: uppercase; margin: 0 0 4px 0; opacity: 0.8; }
+        .input-form { display: flex; gap: 8px; }
+        .text-input { flex: 1; border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 16px; font-size: 14px; outline: none; background-color: #ffffff; color: #1e293b; }
+        .submit-btn { background-color: #2563eb; color: #ffffff; font-weight: 500; padding: 0 24px; border-radius: 12px; font-size: 14px; border: none; cursor: pointer; }
+        .submit-btn:disabled { background-color: #cbd5e1; cursor: not-allowed; }
+        footer { background-color: #f1f5f9; border-top: 1px solid #e2e8f0; text-align: center; padding: 12px 16px; font-size: 12px; color: #64748b; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="dot"></div>
+            <h1>Prostate Cancer Care AI Companion</h1>
+            <span class="badge">Patient Support</span>
+        </div>
+    </header>
+
+    <main>
+        <!-- API KEY INPUT (Required because GitHub Pages is a static host) -->
+        <div class="key-container" id="keyContainer">
+            <span style="font-size: 14px; font-weight: bold; color: #854d0e;">⚠️ Set Gemini API Key to activate chatbot:</span>
+            <input type="password" id="apiKeyInput" class="key-input" placeholder="Paste your AIzaSy... API key here">
+            <button onclick="saveKey()" style="padding: 8px 12px; background:#854d0e; color:white; border:none; border-radius:6px; cursor:pointer; font-size:12px;">Apply</button>
+        </div>
+
+        <div class="info-banner">
+            <strong>💡 Helpful things you can ask:</strong> "What does Active Surveillance mean?", "What are common side effects of hormone treatment?", or "How should I prepare for my oncology appointments?"
+        </div>
+
+        <div class="chat-box" id="chatBox">
+            <div class="welcome-msg" id="welcomeMessage">
+                <p style="fontSize: 18px; font-weight: 500; color: #64748b; margin: 0;">Welcome. How can I assist you with your care navigation today?</p>
+                <p style="font-size: 13px; max-width: 448px; margin: 8px auto 0 auto;">Ask questions about staging, side effects, acronyms, or how to organize your questions for your care coordinator.</p>
+            </div>
+        </div>
+
+        <form class="input-form" id="chatForm" onsubmit="handleSend(event)">
+            <input type="text" id="userInput" class="text-input" placeholder="Type a question about navigating your care..." autocomplete="off">
+            <button type="submit" id="sendBtn" class="submit-btn">Ask AI</button>
+        </form>
+    </main>
+
+    <footer>
+        ⚠️ <strong>Disclaimer:</strong> This platform is an educational resource navigation assistant. It does not provide medical diagnostic assessments or treatment prescriptions. Always coordinate care directly with your oncology team.
+    </footer>
+
+    <script>
+        let apiKey = "";
+
+        // Check if a key was previously saved in the browser
+        window.onload = function() {
+            const savedKey = localStorage.getItem("gemini_key");
+            if (savedKey) {
+                apiKey = savedKey;
+                document.getElementById("apiKeyInput").value = savedKey;
+                document.getElementById("keyContainer").style.backgroundColor = "#e2e8f0";
+                document.getElementById("keyContainer").style.borderColor = "#cbd5e1";
+            }
+        };
+
+        function saveKey() {
+            const inputVal = document.getElementById("apiKeyInput").value.trim();
+            if (inputVal) {
+                apiKey = inputVal;
+                localStorage.setItem("gemini_key", inputVal);
+                alert("API key saved locally to browser!");
+                document.getElementById("keyContainer").style.backgroundColor = "#dcfce7";
+                document.getElementById("keyContainer").style.borderColor = "#bbf7d0";
+            }
+        }
+
+        async function handleSend(e) {
+            e.preventDefault();
+            const inputField = document.getElementById("userInput");
+            const text = inputField.value.trim();
+            if (!text) return;
+
+            if (!apiKey) {
+                alert("Please provide a Gemini API key in the top yellow bar first.");
+                return;
+            }
+
+            // Hide welcome text on first interaction
+            const welcome = document.getElementById("welcomeMessage");
+            if (welcome) welcome.remove();
+
+            // Append User Message
+            appendMessage("user", text);
+            inputField.value = "";
+
+            // Create temporary AI loading message
+            const aiMsgDiv = appendMessage("ai", "Thinking...");
+
+            try {
+                // Call Google Gemini API directly from browser code
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: getSystemInstruction() + "\n\nUser Question: " + text }] }]
+                    })
+                });
+
+                const data = await response.json();
+                const aiReply = data.candidates[0].content.parts[0].text;
+                
+                // Replace loading text with the actual response
+                aiMsgDiv.querySelector(".msg-text").innerText = aiReply;
+            } catch (err) {
+                aiMsgDiv.querySelector(".msg-text").innerText = "Error: Failed to fetch response. Check your API key or connection.";
+                console.error(err);
+            }
+        }
+
+        function appendMessage(sender, text) {
+            const chatBox = document.getElementById("chatBox");
+            const wrapper = document.createElement("div");
+            wrapper.className = `msg-wrapper ${sender}`;
+
+            wrapper.innerHTML = `
+                <div class="message">
+                    <p class="msg-sender">${sender === 'user' ? 'You' : 'AI Companion'}</p>
+                    <p class="msg-text" style="margin:0; white-space: pre-wrap;">${text}</p>
+                </div>
+            `;
+            chatBox.appendChild(wrapper);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            return wrapper;
+        }
+
+        function getSystemInstruction() {
+            return `You are an expert AI Care Navigation Assistant specializing in prostate cancer support. Your job is to help patients make sense of their diagnosis timeline, track appointments, explain medical language simply, and navigate treatment pathways.
+            CLINICAL COMPLIANCE RULES:
+            1. You are an educational guide. You are NOT a doctor. You must never prescribe medication doses or diagnose symptoms.
+            2. Keep explanations accessible for older patients. Break down acronyms (like PSA, ADT, Gleason Score) automatically inline.
+            3. Emergency Triage: If a patient reports dangerous red flags (such as total inability to urinate, severe escalating bone pain, or sudden loss of feeling/strength in their legs), explicitly tell them to call emergency services or go to an urgent care immediately.
+            4. Remind patients to review alternative care paths directly with their oncologist.`;
+        }
+    </script>
+</body>
+</html>
