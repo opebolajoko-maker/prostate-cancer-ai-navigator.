@@ -4,83 +4,218 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prostate Cancer Care AI Companion</title>
+    <!-- Importing a clean, premium font framework -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 0; background-color: #f8fafc; color: #1e293b; display: flex; flex-direction: column; min-height: 100vh; }
-        header { background-color: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 16px 24px; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
-        .header-container { max-width: 896px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
-        .dot { width: 12px; height: 12px; background-color: #2563eb; border-radius: 50%; }
-        h1 { font-size: 20px; font-weight: 700; color: #1e293b; margin: 0; }
-        .badge { font-size: 12px; background-color: #f1f5f9; color: #475569; padding: 4px 8px; border-radius: 9999px; font-weight: 500; }
-        main { flex: 1; max-width: 896px; width: 100%; margin: 0 auto; padding: 24px; display: flex; flex-direction: column; box-sizing: border-box; }
-        .info-banner { background-color: #eff6ff; border: 1px solid #dbeafe; border-radius: 12px; padding: 16px; some-margin-bottom: 16px; font-size: 14px; color: #1e40af; margin-bottom: 16px; }
-        .key-container { background-color: #fef08a; border: 1px solid #fef08a; border-radius: 12px; padding: 12px; margin-bottom: 16px; display: flex; gap: 8px; align-items: center; }
-        .key-input { flex: 1; padding: 8px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 14px; }
-        .chat-box { flex: 1; min-height: 350px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); overflow-y: auto; display: flex; flex-direction: column; gap: 16px; margin-bottom: 16px; }
-        .welcome-msg { text-align: center; padding: 48px 0; color: #94a3b8; }
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --primary-light: #e0f2fe;
+            --slate-50: #f8fafc;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+            --emerald-500: #10b981;
+            --emerald-600: #059669;
+            --emerald-50: #ecfdf5;
+            --amber-500: #f59e0b;
+            --amber-50: #fffbeb;
+        }
+
+        * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s ease; }
+        
+        body { 
+            background-color: var(--slate-50); 
+            color: var(--slate-800); 
+            margin: 0; 
+            padding: 0; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+        }
+
+        /* Modern Header Element */
+        header { 
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--slate-200); 
+            padding: 16px 32px; 
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .header-container { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .header-left { display: flex; align-items: center; gap: 14px; }
+        .logo-dot { width: 14px; height: 14px; background-color: var(--primary); border-radius: 50%; box-shadow: 0 0 12px var(--primary); }
+        h1 { font-size: 20px; font-weight: 700; color: var(--slate-900); margin: 0; letter-spacing: -0.5px; }
+        .badge { font-size: 11px; background-color: var(--primary-light); color: var(--primary-dark); padding: 6px 12px; border-radius: 9999px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Structural Container */
+        main { flex: 1; max-width: 1000px; width: 100%; margin: 0 auto; padding: 32px 24px; display: flex; flex-direction: column; }
+
+        /* Interactive Setup Banner */
+        .key-container { 
+            background-color: var(--amber-50); 
+            border: 1px solid #fde68a; 
+            border-radius: 16px; 
+            padding: 16px; 
+            margin-bottom: 24px; 
+            display: flex; 
+            gap: 12px; 
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .key-title { font-size: 14px; font-weight: 600; color: #92400e; display: flex; align-items: center; gap: 6px; }
+        .key-input { flex: 1; padding: 10px 16px; border: 1px solid #fcd34d; border-radius: 10px; font-size: 14px; background: #ffffff; outline: none; }
+        .key-input:focus { border-color: var(--amber-500); box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2); }
+        .key-btn { padding: 10px 20px; background: #b45309; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 600; }
+        .key-btn:hover { background: #92400e; }
+
+        /* Clinical Discovery Shortcuts Bar */
+        .info-banner { 
+            background: linear-gradient(135deg, #ffffff 0%, var(--slate-50) 100%);
+            border: 1px solid var(--slate-200); 
+            border-radius: 16px; 
+            padding: 20px; 
+            font-size: 14px; 
+            color: var(--slate-700); 
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+        .info-title { font-weight: 600; color: var(--slate-900); margin-bottom: 12px; display: block; }
+        .chips-container { display: flex; flex-wrap: wrap; gap: 8px; }
+        .suggested-chip { background: #ffffff; border: 1px solid var(--slate-200); padding: 8px 14px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--slate-700); }
+        .suggested-chip:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+
+        /* Premium Chat Canvas Container */
+        .chat-box { 
+            flex: 1; 
+            min-height: 400px; 
+            background-color: #ffffff; 
+            border: 1px solid var(--slate-200); 
+            border-radius: 20px; 
+            padding: 32px; 
+            box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.04); 
+            overflow-y: auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+            margin-bottom: 24px; 
+        }
+        
+        .welcome-msg { text-align: center; padding: 64px 0; max-width: 500px; margin: auto; }
+        .welcome-msg p { color: var(--slate-700); font-size: 16px; line-height: 1.6; }
+        
+        /* Modern Structured Message Cards */
         .msg-wrapper { display: flex; width: 100%; }
         .msg-wrapper.user { justify-content: flex-end; }
         .msg-wrapper.ai { justify-content: flex-start; }
-        .message { max-width: 80%; border-radius: 16px; padding: 12px 16px; font-size: 14px; line-height: 1.5; word-wrap: break-word; }
-        .msg-wrapper.user .message { background-color: #2563eb; color: #ffffff; }
-        .msg-wrapper.ai .message { background-color: #f1f5f9; color: #1e293b; border: 1px solid #e2e8f0; }
-        .msg-sender { font-weight: 600; font-size: 11px; text-transform: uppercase; margin: 0 0 4px 0; opacity: 0.8; }
-        .input-form { display: flex; gap: 8px; }
-        .text-input { flex: 1; border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 16px; font-size: 14px; outline: none; background-color: #ffffff; color: #1e293b; }
-        .submit-btn { background-color: #2563eb; color: #ffffff; font-weight: 500; padding: 0 24px; border-radius: 12px; font-size: 14px; border: none; cursor: pointer; }
-        .submit-btn:disabled { background-color: #cbd5e1; cursor: not-allowed; }
-        footer { background-color: #f1f5f9; border-top: 1px solid #e2e8f0; text-align: center; padding: 12px 16px; font-size: 12px; color: #64748b; }
+        
+        .message { 
+            max-width: 75%; 
+            border-radius: 16px; 
+            padding: 16px 20px; 
+            font-size: 15px; 
+            line-height: 1.6; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+        .msg-wrapper.user .message { 
+            background: linear-gradient(135deg, var(--primary) 0%, #026ca2 100%); 
+            color: #ffffff; 
+            border-bottom-right-radius: 4px;
+        }
+        .msg-wrapper.ai .message { 
+            background-color: var(--slate-100); 
+            color: var(--slate-900); 
+            border: 1px solid var(--slate-200);
+            border-bottom-left-radius: 4px;
+        }
+        .msg-sender { font-weight: 700; font-size: 11px; text-transform: uppercase; margin: 0 0 6px 0; opacity: 0.8; letter-spacing: 0.5px; }
+
+        /* Typography spacing adjustments inside responses */
+        .msg-text p { margin: 0 0 8px 0; }
+        .msg-text p:last-child { margin-bottom: 0; }
+        .msg-text ul, .msg-text ol { margin: 4px 0; padding-left: 20px; }
+
+        /* Sleek Input Tray layout */
+        .input-form { display: flex; gap: 12px; background: #ffffff; padding: 8px; border-radius: 16px; border: 1px solid var(--slate-200); box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03); }
+        .text-input { flex: 1; border: none; padding: 12px 16px; font-size: 15px; outline: none; background: transparent; color: var(--slate-900); }
+        .text-input::placeholder { color: #94a3b8; }
+        .submit-btn { background-color: var(--primary); color: #ffffff; font-weight: 600; padding: 0 28px; border-radius: 12px; font-size: 14px; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .submit-btn:hover { background-color: var(--primary-dark); transform: translateY(-1px); }
+        .submit-btn:disabled { background-color: var(--slate-200) !important; color: #94a3b8; cursor: not-allowed; transform: none; }
+
+        /* Guardrail Footer Elements */
+        footer { background-color: #ffffff; border-t: 1px solid var(--slate-200); text-align: center; padding: 20px; font-size: 12px; color: #64748b; line-height: 1.5; border-top: 1px solid var(--slate-200); }
     </style>
 </head>
 <body>
 
     <header>
         <div class="header-container">
-            <div class="dot"></div>
-            <h1>Prostate Cancer Care AI Companion</h1>
-            <span class="badge">Patient Support</span>
+            <div class="header-left">
+                <div class="logo-dot"></div>
+                <h1>Prostate Cancer Care AI Companion</h1>
+            </div>
+            <span class="badge">Patient Navigator</span>
         </div>
     </header>
 
     <main>
-        <!-- API KEY INPUT (Required because GitHub Pages is a static host) -->
+        <!-- Security Key Controller Module -->
         <div class="key-container" id="keyContainer">
-            <span style="font-size: 14px; font-weight: bold; color: #854d0e;">⚠️ Set Gemini API Key to activate chatbot:</span>
-            <input type="password" id="apiKeyInput" class="key-input" placeholder="Paste your AIzaSy... API key here">
-            <button onclick="saveKey()" style="padding: 8px 12px; background:#854d0e; color:white; border:none; border-radius:6px; cursor:pointer; font-size:12px;">Apply</button>
+            <div class="key-title">⚠️ Secure Activation Required:</div>
+            <input type="password" id="apiKeyInput" class="key-input" placeholder="Paste your Gemini AIzaSy... API key here">
+            <button onclick="saveKey()" class="key-btn">Apply Key</button>
         </div>
 
+        <!-- Quick Interaction Option Shortcuts -->
         <div class="info-banner">
-            <strong>💡 Helpful things you can ask:</strong> "What does Active Surveillance mean?", "What are common side effects of hormone treatment?", or "How should I prepare for my oncology appointments?"
-        </div>
-
-        <div class="chat-box" id="chatBox">
-            <div class="welcome-msg" id="welcomeMessage">
-                <p style="fontSize: 18px; font-weight: 500; color: #64748b; margin: 0;">Welcome. How can I assist you with your care navigation today?</p>
-                <p style="font-size: 13px; max-width: 448px; margin: 8px auto 0 auto;">Ask questions about staging, side effects, acronyms, or how to organize your questions for your care coordinator.</p>
+            <span class="info-title">🗺️ Common Navigation Milestones</span>
+            <div class="chips-container">
+                <div class="suggested-chip" onclick="sendPreset('What does Active Surveillance mean?')">What is Active Surveillance?</div>
+                <div class="suggested-chip" onclick="sendPreset('What are the common side effects of hormone therapy (ADT)?')">Hormone Therapy Side Effects</div>
+                <div class="suggested-chip" onclick="sendPreset('How do I prepare questions for my oncology appointment?')">Appointment Preparation Guide</div>
+                <div class="suggested-chip" onclick="sendPreset('What does a Gleason Score mean in my pathology report?')">Understanding Gleason Scores</div>
             </div>
         </div>
 
+        <!-- Scrollable Message Canvas -->
+        <div class="chat-box" id="chatBox">
+            <div class="welcome-msg" id="welcomeMessage">
+                <h2 style="font-size: 22px; color: var(--slate-900); margin-bottom: 8px; font-weight: 700; letter-spacing: -0.5px;">Hello. Welcome to your care navigation space.</h2>
+                <p>This workspace helps you organize queries, map side effects, and break down medical terminology securely. Paste your activation key above to get started.</p>
+            </div>
+        </div>
+
+        <!-- Chat Input Form Tray -->
         <form class="input-form" id="chatForm" onsubmit="handleSend(event)">
-            <input type="text" id="userInput" class="text-input" placeholder="Type a question about navigating your care..." autocomplete="off">
-            <button type="submit" id="sendBtn" class="submit-btn">Ask AI</button>
+            <input type="text" id="userInput" class="text-input" placeholder="Ask a question about navigating your care timeline..." autocomplete="off">
+            <button type="submit" id="sendBtn" class="submit-btn">
+                <span>Ask AI</span>
+            </button>
         </form>
     </main>
 
     <footer>
-        ⚠️ <strong>Disclaimer:</strong> This platform is an educational resource navigation assistant. It does not provide medical diagnostic assessments or treatment prescriptions. Always coordinate care directly with your oncology team.
+        <strong>Clinical Disclaimer Indicator:</strong> This platform is a digital navigation and structural supportive roadmap organizer tool. It is not an active emergency response service and does not provide formal therapeutic medical prescriptions or critical diagnosis profiles. Always evaluate systemic decisions side-by-side with your primary clinical urologist and oncology team.
     </footer>
 
     <script>
         let apiKey = "";
 
-        // Check if a key was previously saved in the browser
         window.onload = function() {
             const savedKey = localStorage.getItem("gemini_key");
             if (savedKey) {
                 apiKey = savedKey;
                 document.getElementById("apiKeyInput").value = savedKey;
-                document.getElementById("keyContainer").style.backgroundColor = "#e2e8f0";
-                document.getElementById("keyContainer").style.borderColor = "#cbd5e1";
+                markKeyValid();
             }
         };
 
@@ -89,10 +224,23 @@
             if (inputVal) {
                 apiKey = inputVal;
                 localStorage.setItem("gemini_key", inputVal);
-                alert("API key saved locally to browser!");
-                document.getElementById("keyContainer").style.backgroundColor = "#dcfce7";
-                document.getElementById("keyContainer").style.borderColor = "#bbf7d0";
+                markKeyValid();
             }
+        }
+
+        function markKeyValid() {
+            const container = document.getElementById("keyContainer");
+            container.style.backgroundColor = "var(--emerald-50)";
+            container.style.borderColor = "#a7f3d0";
+            container.querySelector(".key-title").innerHTML = "✅ Base Interface Connected:";
+            container.querySelector(".key-title").style.color = "var(--emerald-600)";
+            container.querySelector(".key-btn").style.background = "var(--emerald-600)";
+            container.querySelector(".key-btn").innerText = "Updated";
+        }
+
+        function sendPreset(text) {
+            document.getElementById("userInput").value = text;
+            handleSend(new Event('submit'));
         }
 
         async function handleSend(e) {
@@ -102,23 +250,20 @@
             if (!text) return;
 
             if (!apiKey) {
-                alert("Please provide a Gemini API key in the top yellow bar first.");
+                alert("Please paste your Gemini API key into the secure activation tray at the top of the interface first.");
                 return;
             }
 
-            // Hide welcome text on first interaction
             const welcome = document.getElementById("welcomeMessage");
             if (welcome) welcome.remove();
 
-            // Append User Message
             appendMessage("user", text);
             inputField.value = "";
 
-            // Create temporary AI loading message
-            const aiMsgDiv = appendMessage("ai", "Thinking...");
+            const aiMsgDiv = appendMessage("ai", "Processing query framework...");
+            const textNode = aiMsgDiv.querySelector(".msg-text");
 
             try {
-                // Call Google Gemini API directly from browser code
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -128,12 +273,12 @@
                 });
 
                 const data = await response.json();
-                const aiReply = data.candidates[0].content.parts[0].text;
+                let aiReply = data.candidates[0].content.parts[0].text;
                 
-                // Replace loading text with the actual response
-                aiMsgDiv.querySelector(".msg-text").innerText = aiReply;
+                // Formats newlines cleanly into readable paragraphs
+                textNode.innerHTML = aiReply.split('\n').map(para => para.trim() ? `<p>${para}</p>` : '').join('');
             } catch (err) {
-                aiMsgDiv.querySelector(".msg-text").innerText = "Error: Failed to fetch response. Check your API key or connection.";
+                textNode.innerText = "Connection Exception: Make sure your key entry sequence is accurate and try again.";
                 console.error(err);
             }
         }
@@ -145,8 +290,8 @@
 
             wrapper.innerHTML = `
                 <div class="message">
-                    <p class="msg-sender">${sender === 'user' ? 'You' : 'AI Companion'}</p>
-                    <p class="msg-text" style="margin:0; white-space: pre-wrap;">${text}</p>
+                    <p class="msg-sender">${sender === 'user' ? 'You' : 'AI Navigator'}</p>
+                    <div class="msg-text">${text}</div>
                 </div>
             `;
             chatBox.appendChild(wrapper);
@@ -158,7 +303,7 @@
             return `You are an expert AI Care Navigation Assistant specializing in prostate cancer support. Your job is to help patients make sense of their diagnosis timeline, track appointments, explain medical language simply, and navigate treatment pathways.
             CLINICAL COMPLIANCE RULES:
             1. You are an educational guide. You are NOT a doctor. You must never prescribe medication doses or diagnose symptoms.
-            2. Keep explanations accessible for older patients. Break down acronyms (like PSA, ADT, Gleason Score) automatically inline.
+            2. Keep explanations accessible for older patients. Break down acronyms (like PSA, ADT, Gleason Score) automatically inline. Do not use Markdown formatting symbols like asterisks or hashtags since this interface renders raw text strings. Instead, separate points cleanly using descriptive sentences.
             3. Emergency Triage: If a patient reports dangerous red flags (such as total inability to urinate, severe escalating bone pain, or sudden loss of feeling/strength in their legs), explicitly tell them to call emergency services or go to an urgent care immediately.
             4. Remind patients to review alternative care paths directly with their oncologist.`;
         }
