@@ -3,222 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prostate Cancer Care AI Companion</title>
+    <title>iCCaRE Cancer Support Coordination Platform</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #0284c7;
-            --primary-gradient: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-            --primary-light: #f0f9ff;
-            --slate-50: #f8fafc;
+            /* Layout & Reference Colors */
+            --bg-electric-blue: #1e50ff;
+            --bg-deep-navy: #1e295d;
+            --text-light: #ffffff;
+            --text-dark: #0f172a;
+            
+            /* iCCaRE Consortium Brand Accents */
+            --iccare-red: #b30006;
+            --iccare-green: #006622;
+            --iccare-yellow: #fcd34d;
+            --iccare-gold: #eab308;
+            
             --slate-100: #f1f5f9;
             --slate-200: #e2e8f0;
-            --slate-700: #475569;
-            --slate-900: #0f172a;
-            --emerald: #10b981;
-            --emerald-bg: #ecfdf5;
+            --slate-400: #94a3b8;
         }
 
-        * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.2s ease; }
+        * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         
         body { 
-            background-color: #f1f5f9;
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 24px 24px;
-            color: var(--slate-900); 
+            background-color: #0f142c;
+            color: var(--text-light); 
             margin: 0; 
             padding: 0; 
             display: flex; 
-            flex-direction: column; 
-            min-height: 100vh; 
-        }
-
-        header { 
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--slate-200); 
-            padding: 20px 40px; 
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
-        }
-        
-        .header-container { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
-        .header-left { display: flex; align-items: center; gap: 14px; }
-        .logo-mark { background: var(--primary-gradient); color: white; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); }
-        h1 { font-size: 22px; font-weight: 800; color: var(--slate-900); margin: 0; letter-spacing: -0.5px; }
-        .badge { font-size: 11px; background-color: #e0f2fe; color: #0369a1; padding: 6px 14px; border-radius: 9999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-
-        main { flex: 1; max-width: 1100px; width: 100%; margin: 0 auto; padding: 40px 24px; display: flex; flex-direction: column; gap: 24px; }
-
-        /* Fancy Ribbon Hero Banner Section */
-        .hero-banner {
-            display: flex;
-            background: #ffffff;
-            border-radius: 24px;
-            border: 1px solid var(--slate-200);
-            overflow: hidden;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            margin-bottom: 8px;
-        }
-        .hero-content { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
-        .hero-title { font-size: 28px; font-weight: 800; margin: 0 0 12px 0; letter-spacing: -0.5px; line-height: 1.2; }
-        .hero-subtitle { color: var(--slate-700); font-size: 15px; line-height: 1.6; margin: 0; }
-        .hero-image-pane { background: #000000; width: 300px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .hero-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
-
-        /* Key Security Bar */
-        .key-container { 
-            background-color: #fffbeb; 
-            border: 1px solid #fef08a; 
-            border-radius: 16px; 
-            padding: 16px 24px; 
-            display: flex; 
-            gap: 16px; 
             align-items: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-        .key-title { font-size: 14px; font-weight: 700; color: #b45309; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
-        .key-input { flex: 1; padding: 12px 16px; border: 1px solid #fcd34d; border-radius: 12px; font-size: 14px; background: #ffffff; outline: none; }
-        .key-input:focus { border-color: #f59e0b; box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15); }
-        .key-btn { padding: 12px 24px; background: #b45309; color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 700; }
-        .key-btn:hover { background: #92400e; }
 
-        /* Navigation Prompt Suggestions Layer */
-        .info-banner { 
-            background: #ffffff;
-            border: 1px solid var(--slate-200); 
-            border-radius: 20px; 
-            padding: 24px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        /* The Grand Reference Container Block */
+        .app-canvas {
+            width: 92vw;
+            max-width: 1200px;
+            height: 85vh;
+            min-height: 650px;
+            background: transparent;
+            border-radius: 32px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .info-title { font-weight: 700; font-size: 14px; color: var(--slate-900); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px; display: block; }
-        .chips-container { display: flex; flex-wrap: wrap; gap: 10px; }
-        .suggested-chip { background: var(--slate-50); border: 1px solid var(--slate-200); padding: 10px 18px; border-radius: 12px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--slate-700); }
-        .suggested-chip:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08); }
 
-        /* Premium Chat Canvas box */
-        .chat-box { 
-            min-height: 450px;
-            background-color: #ffffff; 
-            border: 1px solid var(--slate-200); 
-            border-radius: 24px; 
-            padding: 36px; 
-            box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.05); 
-            overflow-y: auto; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 24px; 
+        /* LEFT SIDE PANEL: Electric Blue Abstract Hub */
+        .panel-left {
+            flex: 0 0 42%;
+            background-color: var(--bg-electric-blue);
+            background-image: 
+                radial-gradient(circle at 20% 30%, #3b82f6 0%, transparent 50%),
+                radial-gradient(circle at 75% 70%, #0026ca 0%, transparent 60%),
+                flow-gradient;
+            padding: 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
         }
-        
-        .welcome-msg { text-align: center; padding: 40px 0; max-width: 550px; margin: auto; }
-        
-        /* Message Card Element styling */
-        .msg-wrapper { display: flex; width: 100%; }
-        .msg-wrapper.user { justify-content: flex-end; }
-        .msg-wrapper.ai { justify-content: flex-start; }
-        
-        .message { 
-            max-width: 75%; 
-            border-radius: 20px; 
-            padding: 18px 24px; 
-            font-size: 15px; 
-            line-height: 1.6; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.01);
-        }
-        .msg-wrapper.user .message { 
-            background: var(--primary-gradient);
-            color: #ffffff; 
-            border-bottom-right-radius: 4px;
-            box-shadow: 0 8px 20px -6px rgba(2, 132, 199, 0.3);
-        }
-        .msg-wrapper.ai .message { 
-            background-color: var(--slate-50); 
-            color: #0f172a; 
-            border: 1px solid var(--slate-200);
-            border-bottom-left-radius: 4px;
-        }
-        .msg-sender { font-weight: 800; font-size: 11px; text-transform: uppercase; margin: 0 0 6px 0; opacity: 0.8; letter-spacing: 0.5px; }
 
-        /* Typography structuring rules inside system messages */
-        .msg-text p { margin: 0 0 10px 0; }
+        .brand-zone { display: flex; align-items: center; gap: 16px; }
+        .logo-placeholder { font-size: 32px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); }
+        
+        /* iCCaRE Colored Styled Header Accent Text */
+        .brand-text { font-size: 36px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; color: #ffffff; }
+        .brand-text span.r { color: #ffccd0; }
+        .brand-text span.g { color: #a7f3d0; }
+        .brand-text span.y { color: var(--iccare-yellow); }
+
+        .hero-desc { font-size: 15px; line-height: 1.6; color: rgba(255, 255, 255, 0.85); margin-top: 20px; font-weight: 400; }
+
+        /* The 3 Dots Accent from Reference Image */
+        .dots-row { display: flex; gap: 8px; align-items: center; }
+        .dots-row .dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid #ffffff; }
+        .dots-row .dot.active { background-color: var(--iccare-yellow); border-color: var(--iccare-yellow); }
+
+        /* RIGHT SIDE PANEL: Deep Navy Chat Canvas */
+        .panel-right {
+            flex: 1;
+            background-color: var(--bg-deep-navy);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Top Bar Element with Reference Lines */
+        .right-topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .deco-lines { display: flex; gap: 12px; }
+        .deco-line { width: 40px; height: 3px; background-color: rgba(255,255,255,0.2); border-radius: 2px; }
+        .menu-icon { color: var(--iccare-yellow); font-size: 20px; font-weight: bold; cursor: pointer; }
+
+        /* Key Connection Banner Card */
+        .key-banner {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 14px 20px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .key-title { font-size: 13px; font-weight: 700; color: var(--iccare-yellow); white-space: nowrap; text-transform: uppercase; letter-spacing: 0.5px; }
+        .key-input { flex: 1; padding: 10px 14px; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; font-size: 13px; background: rgba(0,0,0,0.2); color: white; outline: none; }
+        .key-input:focus { border-color: var(--iccare-yellow); }
+        .key-btn { padding: 10px 18px; background: var(--iccare-red); color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 700; }
+        .key-btn:hover { opacity: 0.9; }
+
+        /* Scrollable Message Box Room */
+        .chat-space {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-right: 8px;
+            margin-bottom: 20px;
+        }
+
+        .welcome-center { text-align: center; margin: auto; max-width: 420px; padding: 20px 0; }
+        .welcome-center h3 { font-size: 22px; font-weight: 700; margin: 0 0 10px 0; }
+        .welcome-center p { font-size: 14px; color: var(--slate-400); line-height: 1.5; }
+
+        /* Chat Dialogue Balloons */
+        .msg-row { display: flex; width: 100%; }
+        .msg-row.user { justify-content: flex-end; }
+        .msg-row.ai { justify-content: flex-start; }
+        
+        .msg-balloon { max-width: 80%; border-radius: 16px; padding: 14px 18px; font-size: 14.5px; line-height: 1.5; }
+        .msg-row.user .msg-balloon { background-color: var(--bg-electric-blue); color: white; border-bottom-right-radius: 2px; }
+        .msg-row.ai .msg-balloon { background-color: rgba(255, 255, 255, 0.06); color: #e2e8f0; border: 1px solid rgba(255,255,255,0.05); border-bottom-left-radius: 2px; }
+        .msg-meta { font-weight: 700; font-size: 11px; text-transform: uppercase; margin: 0 0 4px 0; letter-spacing: 0.5px; }
+        .msg-row.user .msg-meta { color: var(--iccare-yellow); }
+        .msg-row.ai .msg-meta { color: #a7f3d0; }
+        .msg-text p { margin: 0 0 8px 0; }
         .msg-text p:last-child { margin-bottom: 0; }
 
-        /* Sleek Modern Chat Form Bar */
-        .input-form { display: flex; gap: 12px; background: #ffffff; padding: 10px; border-radius: 20px; border: 1px solid var(--slate-200); box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04); }
-        .text-input { flex: 1; border: none; padding: 14px 20px; font-size: 15px; outline: none; background: transparent; color: var(--slate-900); }
-        .submit-btn { background: var(--primary-gradient); color: #ffffff; font-weight: 700; padding: 0 32px; border-radius: 14px; font-size: 15px; border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2); }
-        .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(2, 132, 199, 0.3); }
-        .submit-btn:disabled { background: var(--slate-200) !important; color: #94a3b8; cursor: not-allowed; transform: none; box-shadow: none; }
+        /* Navigation Suggestions Tags Grid */
+        .shortcuts-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+        .shortcut-item { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); padding: 12px 16px; border-radius: 12px; cursor: pointer; font-size: 13px; font-weight: 500; color: white; text-align: left; }
+        .shortcut-item:hover { background: rgba(255,255,255,0.15); border-color: var(--iccare-yellow); }
 
-        footer { background-color: #ffffff; text-align: center; padding: 24px; font-size: 12px; color: #64748b; line-height: 1.6; border-top: 1px solid var(--slate-200); }
+        /* Control Input Tray */
+        .input-tray { display: flex; gap: 12px; background: rgba(0, 0, 0, 0.15); padding: 8px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); }
+        .text-box { flex: 1; border: none; padding: 12px 16px; font-size: 14.5px; outline: none; background: transparent; color: white; }
+        .text-box::placeholder { color: rgba(255,255,255,0.3); }
+        .action-btn { background-color: var(--iccare-green); color: white; font-weight: 700; padding: 0 24px; border-radius: 12px; font-size: 14px; border: none; cursor: pointer; }
+        .action-btn:hover { opacity: 0.9; }
+        .action-btn:disabled { background-color: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.3); cursor: not-allowed; }
+
+        /* Legal Context Tag Footnote */
+        .footnote { font-size: 11px; color: rgba(255,255,255,0.3); text-align: center; margin-top: 12px; line-height: 1.4; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-container">
-            <div class="header-left">
-                <div class="logo-mark">🎚️</div>
-                <h1>Prostate Cancer Care AI Companion</h1>
+    <!-- Unified Split Screen Layout Structure -->
+    <div class="app-canvas">
+        
+        <!-- LEFT SIDE BLOCK: Electric Reference Art & Menu Info -->
+        <div class="panel-left">
+            <div class="brand-zone">
+                <div class="logo-placeholder">🌐</div>
+                <div class="brand-text">
+                    <span class="r">i</span>CCa<span class="g">R</span><span class="y">E</span>
+                </div>
             </div>
-            <span class="badge">AI Support Platform</span>
-        </div>
-    </header>
 
-    <main>
-        <!-- Hero Graphics Banner Grid Layout -->
-        <div class="hero-banner">
-            <div class="hero-content">
-                <h2 class="hero-title">Intelligent Care Coordination & Patient Navigation Roadmap</h2>
-                <p class="hero-subtitle">Translate terminology, track treatment milestones, categorize clinical parameters, and coordinate support structures automatically and securely.</p>
+            <div>
+                <h2 style="font-size: 24px; font-weight: 800; margin: 0; line-height: 1.2;">Prostate Cancer Care Support Platform</h2>
+                <p class="hero-desc">An interactive coordination repository map layout built to support navigational oncology benchmarks and streamline complex patient resource timelines seamlessly.</p>
+                
+                <!-- Quick Selection Component Subsections inside Left Deck -->
+                <div class="shortcuts-grid">
+                    <button class="shortcut-item" onclick="sendPreset('What does Active Surveillance mean?')">📋 Define Active Surveillance</button>
+                    <button class="shortcut-item" onclick="sendPreset('What are the common side effects of hormone therapy (ADT)?')">💊 Evaluate Hormone Side Effects</button>
+                    <button class="shortcut-item" onclick="sendPreset('What does a Gleason Score mean in my pathology report?')">🔬 Interpret Gleason Pathology Scores</button>
+                </div>
             </div>
-            <div class="hero-image-pane">
-                <img src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/prostate-cancer-awareness-ribbon-flippin-sweet-gear.jpg" alt="Prostate Cancer Awareness Blue Ribbon" class="hero-img">
-            </div>
-        </div>
 
-        <!-- Security Gateway Entry Card -->
-        <div class="key-container" id="keyContainer">
-            <div class="key-title">🔑 Secure API Connection:</div>
-            <input type="password" id="apiKeyInput" class="key-input" placeholder="Paste your secure Gemini AIzaSy... API key string here to activate system logs">
-            <button onclick="saveKey()" class="key-btn">Activate Engine</button>
-        </div>
-
-        <!-- Quick Interaction Option Shortcuts -->
-        <div class="info-banner">
-            <span class="info-title">🧭 Navigation Checkpoint Shortcuts</span>
-            <div class="chips-container">
-                <div class="suggested-chip" onclick="sendPreset('What does Active Surveillance mean?')">Active Surveillance Definition</div>
-                <div class="suggested-chip" onclick="sendPreset('What are the common side effects of hormone therapy (ADT)?')">Hormone Treatment Concerns</div>
-                <div class="suggested-chip" onclick="sendPreset('How do I prepare questions for my oncology appointment?')">Oncology Appointment Prep</div>
-                <div class="suggested-chip" onclick="sendPreset('What does a Gleason Score mean in my pathology report?')">Deciphering Gleason Scores</div>
+            <div class="dots-row">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
             </div>
         </div>
 
-        <!-- Main Messages Canvas Board -->
-        <div class="chat-box" id="chatBox">
-            <div class="welcome-msg" id="welcomeMessage">
-                <div style="font-size: 40px; margin-bottom: 16px;">🌐</div>
-                <h3 style="font-size: 20px; color: var(--slate-900); margin: 0 0 8px 0; font-weight: 800; letter-spacing: -0.5px;">Welcome to your structural navigator workspace</h3>
-                <p style="margin: 0;">This workspace leverages a local connection layout framework to simplify complex oncological terms and guide your timeline. Enter your API key configuration above to deploy the engine.</p>
+        <!-- RIGHT SIDE BLOCK: Deep Navy Console Interface -->
+        <div class="panel-right">
+            <!-- Top Line Decoration from Reference -->
+            <div class="right-topbar">
+                <div class="deco-lines">
+                    <div class="deco-line"></div>
+                    <div class="deco-line"></div>
+                    <div class="deco-line"></div>
+                </div>
+                <div class="menu-icon">☰</div>
+            </div>
+
+            <!-- Activation Gateway Key Card -->
+            <div class="key-banner" id="keyContainer">
+                <div class="key-title">🔑 Platform Key:</div>
+                <input type="password" id="apiKeyInput" class="key-input" placeholder="Enter Gemini Secure API key token...">
+                <button onclick="saveKey()" class="key-btn">Connect</button>
+            </div>
+
+            <!-- Scrollable Conversation Terminal -->
+            <div class="chat-space" id="chatBox">
+                <div class="welcome-center" id="welcomeMessage">
+                    <h3 style="color: var(--iccare-yellow);">Navigation Interface Active</h3>
+                    <p>Enter your configuration credentials to start interacting with the digital cancer companion coordinator. Your session is run directly through localized framework links.</p>
+                </div>
+            </div>
+
+            <!-- Messaging Actions Layout Box -->
+            <div>
+                <form class="input-tray" id="chatForm" onsubmit="handleSend(event)">
+                    <input type="text" id="userInput" class="text-box" placeholder="Ask a question about navigating your care plan..." autocomplete="off">
+                    <button type="submit" id="sendBtn" class="action-btn">Submit</button>
+                </form>
+                <div class="footnote">
+                    Disclaimer Indicator: This system provides educational navigation pathways based on generic oncology profiles. Cross-verify choices directly with your clinic coordinator.
+                </div>
             </div>
         </div>
 
-        <!-- Input Tray Bar -->
-        <form class="input-form" id="chatForm" onsubmit="handleSend(event)">
-            <input type="text" id="userInput" class="text-input" placeholder="Type a clinical query or symptom concern here..." autocomplete="off">
-            <button type="submit" id="sendBtn" class="submit-btn">Ask Engine</button>
-        </form>
-    </main>
-
-    <footer>
-        <strong>Oncology Navigation Guardrail Notice:</strong> This platform function acts strictly as an interactive processing database and administrative roadmap organizer. It is completely independent of healthcare facility response networks. For systemic clinical alterations, prescription dosing metrics, or acute medical emergencies, communicate instantly with your designated attending oncologist and specialized care coordination team.
-    </footer>
+    </div>
 
     <script>
         let apiKey = "";
@@ -243,12 +263,12 @@
 
         function markKeyValid() {
             const container = document.getElementById("keyContainer");
-            container.style.backgroundColor = "var(--emerald-bg)";
-            container.style.borderColor = "#a7f3d0";
-            container.querySelector(".key-title").innerHTML = "🔒 Engine Core Fully Connected:";
-            container.querySelector(".key-title").style.color = "var(--emerald)";
-            container.querySelector(".key-btn").style.background = "var(--emerald)";
-            container.querySelector(".key-btn").innerText = "Ready";
+            container.style.backgroundColor = "rgba(0, 102, 34, 0.2)";
+            container.style.borderColor = "var(--iccare-green)";
+            container.querySelector(".key-title").innerHTML = "🔒 Pipeline Encrypted:";
+            container.querySelector(".key-title").style.color = "#a7f3d0";
+            container.querySelector(".key-btn").style.background = "var(--iccare-green)";
+            container.querySelector(".key-btn").innerText = "Linked";
         }
 
         function sendPreset(text) {
@@ -263,7 +283,7 @@
             if (!text) return;
 
             if (!apiKey) {
-                alert("Please add an activation key string in the connection field before querying the model.");
+                alert("Please add an entry token in the connection field before querying.");
                 return;
             }
 
@@ -273,7 +293,7 @@
             appendMessage("user", text);
             inputField.value = "";
 
-            const aiMsgDiv = appendMessage("ai", "Analyzing medical intent parameters...");
+            const aiMsgDiv = appendMessage("ai", "Processing query intent parameters...");
             const textNode = aiMsgDiv.querySelector(".msg-text");
 
             try {
@@ -290,7 +310,7 @@
                 
                 textNode.innerHTML = aiReply.split('\n').map(para => para.trim() ? `<p>${para}</p>` : '').join('');
             } catch (err) {
-                textNode.innerText = "Processing Interrupted: Verify your access key configuration parameters and query format structures.";
+                textNode.innerText = "Processing Exception: Verify your connectivity credentials and parameters.";
                 console.error(err);
             }
         }
@@ -298,11 +318,11 @@
         function appendMessage(sender, text) {
             const chatBox = document.getElementById("chatBox");
             const wrapper = document.createElement("div");
-            wrapper.className = `msg-wrapper ${sender}`;
+            wrapper.className = `msg-row ${sender}`;
 
             wrapper.innerHTML = `
-                <div class="message">
-                    <p class="msg-sender">${sender === 'user' ? 'You' : 'AI Companion Navigator'}</p>
+                <div class="msg-balloon">
+                    <p class="msg-meta">${sender === 'user' ? 'Patient Inquiry' : 'iCCaRE Navigator Hub'}</p>
                     <div class="msg-text">${text}</div>
                 </div>
             `;
@@ -312,7 +332,7 @@
         }
 
         function getSystemInstruction() {
-            return `You are an expert AI Care Navigation Assistant specializing in prostate cancer support. Your job is to help patients make sense of their diagnosis timeline, track appointments, explain medical language simply, and navigate treatment pathways.
+            return `You are an expert AI Care Navigation Assistant representing the iCCaRE prostate cancer support coordination network. Your job is to help patients make sense of their diagnosis timeline, track appointments, explain medical language simply, and navigate treatment pathways.
             CLINICAL COMPLIANCE RULES:
             1. You are an educational guide. You are NOT a doctor. You must never prescribe medication doses or diagnose symptoms.
             2. Keep explanations accessible for older patients. Break down acronyms (like PSA, ADT, Gleason Score) automatically inline. Do not use Markdown formatting symbols like asterisks or hashtags since this interface renders raw text strings. Instead, separate points cleanly using descriptive sentences.
