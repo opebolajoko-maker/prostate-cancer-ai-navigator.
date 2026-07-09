@@ -202,26 +202,23 @@
 
     <div class="app-canvas">
         
-        <!-- LEFT SIDE BLOCK: Electric Reference Art & Menu Info -->
         <div class="panel-left">
             
-            <!-- Exact Logo Image Container looking directly at your local logo.png file -->
             <div class="brand-zone">
-                <img src="logo.png" alt="iCCaRE Consortium Logo" class="official-logo-img">
+                <img src="logo.png?v=1" alt="iCCaRE Consortium Logo" class="official-logo-img">
             </div>
 
             <div>
                 <h2 style="font-size: 22px; font-weight: 800; margin: 15px 0 0 0; line-height: 1.2;">Prostate Cancer Care Support Platform</h2>
                 <p class="hero-desc">An interactive coordination repository map layout built to support navigational oncology benchmarks and streamline complex patient resource timelines seamlessly.</p>
                 
-                <!-- Official iCCaRE External Link Infrastructure -->
                 <div class="portal-links">
-                    <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; opacity: 0.7; letter-spacing: 0.5px;">Official Consortium Portals:</span>
+                    <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; opacity: 0.7; letter-spacing: 0.5px;">Support Portals:</span>
                     <a href="https://iccareconsortium.org/" target="_blank" class="portal-link-item">🔗 Visit iCCaRE Main Website</a>
                     <a href="https://www.iccareconsortium.org/projects" target="_blank" class="portal-link-item">🔬 Explore iCCaRE Research Projects</a>
+                    <a href="https://www.cancer.org/support-programs-and-services/caregiver-resource-guide.html" target="_blank" class="portal-link-item" style="color: #cbd5e1;">❤️ ACS Caregiver Resource Guide</a>
                 </div>
 
-                <!-- Quick Selection Component Subsections inside Left Deck -->
                 <div class="shortcuts-grid">
                     <button class="shortcut-item" onclick="sendPreset('What does Active Surveillance mean?')">Active Surveillance Definition</button>
                     <button class="shortcut-item" onclick="sendPreset('What are the common side effects of hormone therapy (ADT)?')">Hormone Treatment Concerns</button>
@@ -236,9 +233,7 @@
             </div>
         </div>
 
-        <!-- RIGHT SIDE BLOCK: Deep Navy Console Interface -->
         <div class="panel-right">
-            <!-- Top Line Decoration from Reference -->
             <div class="right-topbar">
                 <div class="deco-lines">
                     <div class="deco-line"></div>
@@ -248,14 +243,12 @@
                 <div class="menu-icon">☰</div>
             </div>
 
-            <!-- Activation Gateway Key Card -->
             <div class="key-banner" id="keyContainer">
                 <div class="key-title">🔑 Platform Key:</div>
                 <input type="password" id="apiKeyInput" class="key-input" placeholder="Enter Gemini Secure API key token...">
                 <button onclick="saveKey()" class="key-btn">Connect</button>
             </div>
 
-            <!-- Scrollable Conversation Terminal -->
             <div class="chat-space" id="chatBox">
                 <div class="welcome-center" id="welcomeMessage">
                     <h3 style="color: var(--iccare-yellow);">Navigation Interface Active</h3>
@@ -263,7 +256,6 @@
                 </div>
             </div>
 
-            <!-- Messaging Actions Layout Box -->
             <div>
                 <form class="input-tray" id="chatForm" onsubmit="handleSend(event)">
                     <input type="text" id="userInput" class="text-box" placeholder="Ask a question about navigating your care plan..." autocomplete="off">
