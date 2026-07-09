@@ -69,13 +69,22 @@
             position: relative;
         }
 
-        .brand-zone { display: flex; align-items: center; gap: 16px; }
-        .logo-placeholder { font-size: 32px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); }
-        
-        .brand-text { font-size: 36px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; color: #ffffff; }
-        .brand-text span.r { color: #ffccd0; }
-        .brand-text span.g { color: #a7f3d0; }
-        .brand-text span.y { color: var(--iccare-yellow); }
+        /* Brand Zone Modified for Official Image Logo */
+        .brand-zone { 
+            display: flex; 
+            align-items: center; 
+            background: rgba(255, 255, 255, 0.95);
+            padding: 14px 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            margin-bottom: 10px;
+        }
+        .official-logo-img {
+            width: 100%;
+            height: auto;
+            max-height: 55px;
+            object-fit: contain;
+        }
 
         .hero-desc { font-size: 14px; line-height: 1.6; color: rgba(255, 255, 255, 0.85); margin-top: 14px; font-weight: 400; }
 
@@ -195,15 +204,14 @@
         
         <!-- LEFT SIDE BLOCK: Electric Reference Art & Menu Info -->
         <div class="panel-left">
+            
+            <!-- Exact Logo Image Container with White Background for Contrast -->
             <div class="brand-zone">
-                <div class="logo-placeholder">🌐</div>
-                <div class="brand-text">
-                    <span class="r">i</span>CCa<span class="g">R</span><span class="y">E</span>
-                </div>
+                <img src="https://www.iccareconsortium.org/images/logo-long.png" alt="iCCaRE Consortium Logo" class="official-logo-img">
             </div>
 
             <div>
-                <h2 style="font-size: 22px; font-weight: 800; margin: 0; line-height: 1.2;">Prostate Cancer Care Support Platform</h2>
+                <h2 style="font-size: 22px; font-weight: 800; margin: 15px 0 0 0; line-height: 1.2;">Prostate Cancer Care Support Platform</h2>
                 <p class="hero-desc">An interactive coordination repository map layout built to support navigational oncology benchmarks and streamline complex patient resource timelines seamlessly.</p>
                 
                 <!-- Official iCCaRE External Link Infrastructure -->
